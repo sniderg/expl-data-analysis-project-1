@@ -1,3 +1,14 @@
+#reading data file
+library(lubridate)
+library(dplyr)
+
+power <- read.csv("week1/household_power_consumption.txt",sep=";",na.strings = "?")
+power$Time <- dmy(power$Date) + hms(power$Time)
+
+power <- power %>% select(Time:Sub_metering_3) 
+
+power <- power[power_time >= date("2007-02-01") & power_time < date("2007-02-03"),]
+
 #part3
 png(filename="plot3.png")
 plot(power$Time,power$Sub_metering_1,type = "l",ylab ="Energy sub metering",xlab = "")
